@@ -16,15 +16,15 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 lazy val `dotty-master` = (project in file("."))
   .aggregate(
-    `step_000_initial_state`,
-    `step_001_add_multiplication`
+    `step_050_using_sourceWithContext`,
+    `step_060_using_using_substreams`
   )
   .settings(ThisBuild / scalaVersion := Version.scalaVersion)
   .settings(CommonSettings.commonSettings: _*)
 
-lazy val `step_000_initial_state` = project
+lazy val `step_050_using_sourceWithContext` = project
   .configure(CommonSettings.configure)
 
-lazy val `step_001_add_multiplication` = project
+lazy val `step_060_using_using_substreams` = project
   .configure(CommonSettings.configure)
        

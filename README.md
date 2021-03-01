@@ -1,9 +1,7 @@
-# Basic Dotty CMT master master project
+# Akka Streams with Scala
 
 ## Description
 
-This project can be used as a template for a master
-project managed by the [Course Management Tools](https://github.com/eloots/course-management-tools)
+This project contains a number of sample applications that illustrate more advanced concepts in Akka Streams.
 
-It contains 2 simple steps (or exercises)
-
+The examples are coded in Scala.

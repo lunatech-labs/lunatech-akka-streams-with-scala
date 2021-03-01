@@ -2,8 +2,9 @@ import sbt._
 
 object Version {
   val logbackVer        = "1.2.3"
-  val mUnitVer          = "0.7.19"
-  val scalaVersion      = "3.0.0-M2"
+  val mUnitVer          = "0.7.22"
+  val akkaVer           = "2.6.12"
+  val scalaVersion      = "3.0.0-RC1"
 }
 
 object Dependencies {
@@ -15,8 +16,17 @@ object Dependencies {
   private val munitDeps = Seq(
     "org.scalameta" %% "munit" % Version.mUnitVer % Test
   )
+  
+  private val akkaDeps = Seq(
+    "com.typesafe.akka" %% "akka-stream" % Version.akkaVer,
+    "com.typesafe.akka" %% "akka-stream-testkit" % Version.akkaVer,
+    "com.typesafe.akka" %% "akka-actor" % Version.akkaVer,
+  )
 
   val dependencies: Seq[ModuleID] =
     logbackDeps ++
     munitDeps
+
+  val scalaDependencies: Seq[ModuleID] =
+    akkaDeps
 }
