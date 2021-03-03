@@ -14,7 +14,27 @@ case object Ignition extends SignalType
 
 case class Signal(vin: Int, signalType: SignalType, value: Double)
 
-object Substreams extends App {
+sealed trait State {
+  def update(signal: Signal): State
+}
+
+case class DrivingState(vin: Int) extends State {
+  def update(signal: Signal): State =
+    signal.signalType match {
+      case Ignition if signal.value == 0 => ParkedState(vin)
+      case _                             => this
+    }
+}
+
+case class ParkedState(vin: Int) extends State {
+  def update(signal: Signal): State =
+    signal.signalType match {
+      case Velocity if signal.value > 0 => DrivingState(vin)
+      case _                            => this
+    }
+}
+
+object Scan extends App {
   implicit val system: ActorSystem = ActorSystem()
 
   // test data:
@@ -36,17 +56,11 @@ object Substreams extends App {
       f = _.vin,
       allowClosedSubstreamRecreation = true
     )
-    .statefulMapConcat { () =>
-      var driving = false
-
-      { signal =>
-        signal.signalType match {
-          case Ignition => if (driving && signal.value == 0) driving = false
-          case Velocity => if (!driving && signal.value > 0) driving = true
-        }
-        Seq(signal.vin -> driving)
-      }
+    .scan((Option.empty[State])) {
+      case (None, signal)        => Some(ParkedState(signal.vin).update(signal))
+      case (Some(state), signal) => Some(state.update(signal))
     }
+    .collect { case Some(state) => state }
     .idleTimeout(5.minutes)
     .recoverWithRetries(1, { case _: TimeoutException => Source.empty })
     .mergeSubstreams
