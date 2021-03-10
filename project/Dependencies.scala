@@ -4,7 +4,8 @@ object Version {
   val logbackVer        = "1.2.3"
   val mUnitVer          = "0.7.22"
   val akkaVer           = "2.6.12"
-  val scalaVersion      = "3.0.0-RC1"
+  val scalaVersion      = "2.13.5"
+  val scalaTestVer      = "3.2.5"
 }
 
 object Dependencies {
@@ -23,10 +24,16 @@ object Dependencies {
     "com.typesafe.akka" %% "akka-actor" % Version.akkaVer,
   )
 
+  private val scalaTestDeps = Seq(
+    "org.scalatest"     %% "scalatest"  % Version.scalaTestVer % "test",
+    "org.scalactic"     %% "scalactic"  % Version.scalaTestVer
+  )
+
   val dependencies: Seq[ModuleID] =
     logbackDeps ++
     munitDeps
 
   val scalaDependencies: Seq[ModuleID] =
-    akkaDeps
+    akkaDeps ++
+    scalaTestDeps
 }

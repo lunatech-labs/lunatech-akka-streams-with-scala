@@ -2,20 +2,22 @@ package org.cmt
 
 import akka.stream.Attributes
 import akka.stream.scaladsl.{Source, SourceWithContext}
-import org.slf4j.Logger
+import akka.event.LoggingAdapter
 
 object StreamLogExtensions {
-  extension [T, M](src: Source[T, M])
-    def logInfo(name: String)(implicit logger: Logger) = {
+  implicit class SourceLogExtension[T, M](val src: Source[T, M]) {
+    def logInfo(name: String)(implicit log: LoggingAdapter) = {
       src.map { msg => 
-        logger.info(s"[$name] ${msg.toString}");msg
+        log.info(s"[$name] ${msg.toString}");msg
+      }
     }
   }
 
-  extension [T, C, M](src: SourceWithContext[T, C, M])
-    def logSWCInfo(name: String)(implicit logger: Logger): SourceWithContext[T, C, M] = {
+  implicit class SourceWithContextLogExtension[T, C, M](val src: SourceWithContext[T, C, M]) {
+    def logSWCInfo(name: String)(implicit log: LoggingAdapter): SourceWithContext[T, C, M] = {
       src.map { msg => 
-        logger.info(s"[$name] ${msg.toString}");msg
+        log.info(s"[$name] ${msg.toString}");msg
+      }
     }
   }
 }
