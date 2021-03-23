@@ -22,6 +22,7 @@ Follow the following steps to do this
 
 ## System prerequisites
 
-Your system should have `sbt` installed and a JDK, preferably Java 11 or higher
+Your system should have `sbt` installed and a JDK, preferably Java 11 or higher.
+
 Even though the studentified artefact can be used on different sysems (Mac, *nix, Windows 10), the
 studentification process is not supported on Windows (unless you run the process under WSL 2).
