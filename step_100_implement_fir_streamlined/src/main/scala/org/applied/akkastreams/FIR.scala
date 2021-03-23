@@ -3,6 +3,7 @@ package org.applied.akkastreams
 import akka.actor.ActorSystem
 
 object FIR extends App {
+  // TODO This can be turned into a real exercise although it doesn't add anything specific to the course topic
   import FilterElements._
 
   // Make the Blueprint of the (FIR based) echo generator Flow

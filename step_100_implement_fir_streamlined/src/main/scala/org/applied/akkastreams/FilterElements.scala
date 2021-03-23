@@ -2,6 +2,7 @@ package org.applied.akkastreams
 
 import akka.NotUsed
 import akka.stream.scaladsl.Flow
+import FIRElements._
 
 object FilterElements {
 
@@ -13,28 +14,6 @@ object FilterElements {
       case (flow, FilterStage(delay, coef)) => flow.via(DelayLineFlow(delay, coef))
     }
     firCoreFLow.via(FirSelectOut())
-  }
-
-  object FirInitial {
-    def apply() = {
-      Flow.fromFunction[Double, (Double, Double)] { sample =>
-        (sample, sample)
-      }
-    }
-  }
-
-  object FirInitialZero {
-    def apply() = {
-      Flow.fromFunction[Double, (Double, Double)] { sample =>
-        (sample, 0.0d)
-      }
-    }
-  }
-
-  object FirSelectOut {
-    def apply() = {
-      Flow.fromFunction[(Double, Double), Double] { case (_, out) => out}
-    }
   }
 
   object DelayLineFlow {

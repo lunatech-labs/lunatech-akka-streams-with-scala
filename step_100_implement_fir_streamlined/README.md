@@ -1,8 +1,20 @@
-implement_a_fir_streamlined
-
 ## Construction of a simple FIR based echo generator using DelayLine
 
-Building an FIR based echo generator from a simple *Echo generator Spec*
+This exercise adds a factory method named `buildFIR` for an FIR filter. This
+makes it easier to build such a filter based on an object that contains a
+specification of each filter stage, namely a `delay` and a `scaleFactor`.
 
-Demonstrates building a Flow using folding of filter stages over an initial
-flow
+If you want, you can try to build this yourself based on the state of the
+previoous exercise. Otherwise, you can pull in the changed version by
+selectively pulling the changed files by pulling the full "solution" by
+running the `nextExercise` and `pullSolution` commands from the sbt 
+prompt.
+
+If you want to hang on to the code you implemented in the previous
+exercises, save it by running `saveState` before pulling the solution.
+This will allow you to restore the saved state using the `restoreState`
+command later! (you need to pass a reference to the saved state to
+`restoreState`. To display all saved states, run the `savedStates` command)
+
+Verify that the tests still pass and also run the code via the `run`
+command.
