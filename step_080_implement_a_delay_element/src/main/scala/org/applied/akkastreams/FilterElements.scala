@@ -29,9 +29,9 @@ object FilterElements {
         val eq = MQueue(List.fill(delay)(0.0d): _*)
 
         { case (sample, ff) =>
-          eq.enqueue(sample)
-          val delayedSample = eq.dequeue()
-          Iterable((delayedSample, ff + delayedSample * scaleFactor))
+            eq.enqueue(sample)
+            val delayedSample = eq.dequeue()
+            Iterable((delayedSample, ff + delayedSample * scaleFactor))
         }
       }
     }

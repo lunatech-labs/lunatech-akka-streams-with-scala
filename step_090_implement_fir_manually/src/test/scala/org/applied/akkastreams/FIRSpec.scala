@@ -5,6 +5,7 @@ import org.scalatest.freespec._
 
 trait FIRTestData {
   import FilterElements._
+  import FIRElements._
 
   // Create an FIR filter with delays/scala factors = (2, -0.3), (3, -0.3) and (5, -0.2)
   val testFilter = FirInitial()
