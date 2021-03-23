@@ -1,7 +1,6 @@
 import sbt.Keys._
 import sbt._
 import sbtstudent.AdditionalSettings
-import dotty.tools.sbtplugin.DottyPlugin.autoImport.DottyCompatModuleID
 
 object CommonSettings {
   lazy val commonSettings = Seq(
@@ -11,7 +10,7 @@ object CommonSettings {
     Test / logBuffered := false,
     Test / parallelExecution := false,
     libraryDependencies ++= Dependencies.dependencies,
-    libraryDependencies ++= Dependencies.scalaDependencies.map(_.withDottyCompat(scalaVersion.value)),
+    libraryDependencies ++= Dependencies.scalaDependencies,
     testFrameworks += new TestFramework("munit.Framework")
   ) ++
     AdditionalSettings.initialCmdsConsole ++
