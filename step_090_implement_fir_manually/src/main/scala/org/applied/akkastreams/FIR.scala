@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 
 object FIR extends App {
   import FilterElements._
+  import FIRElements._
 
   // Make the Blueprint of the (FIR based) echo generator Flow
   val firBasedEcho =

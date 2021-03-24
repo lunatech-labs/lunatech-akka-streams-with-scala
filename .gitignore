@@ -5,6 +5,9 @@ hypriot.img
 collectedLogs/
 collectedLogs.zip
 
+# Course specific
+*-out.wav
+
 # VSCode specific
 .vscode
 *.code-workspace
