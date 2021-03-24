@@ -11,6 +11,8 @@ import scala.util.Random
 
 object Main {
 
+  final case class Data(i: Int, d: Double)
+
   def extractContext[Data, Ctx](element: (Data, Ctx)): Ctx = element._2
   def extractData[Data, Ctx](element: (Data, Ctx)): Data = element._1
 
@@ -19,11 +21,11 @@ object Main {
    *   - the first one, an Int between 0 and 999,
    *   - the second one a Double between 0.0d and 100000.0d
    */
-  val dataSource: Source[(Int, Double), NotUsed] = {
+  val dataSource: Source[Data, NotUsed] = {
     val scale = 100000
     val sourceOfInts = Source.fromIterator(() => Iterator.continually(Random.nextInt(1000)))
     val sourceOfDouble = Source.fromIterator(() => Iterator.continually(Random.nextInt(scale + 1)/scale.toDouble))
-    sourceOfInts.zip(sourceOfDouble)
+    sourceOfInts.zip(sourceOfDouble).map{ case (i, d) => Data(i, d)}
   }
 
   /**
@@ -35,7 +37,7 @@ object Main {
   /**
    * A source of data & context
    */
-  val sourceDataWithContext: Source[((Int, Double), UUID), NotUsed] = dataSource.zip(contextSource)
+  val sourceDataWithContext: Source[(Data, UUID), NotUsed] = dataSource.zip(contextSource)
 
 
   /**
@@ -56,19 +58,19 @@ object Main {
     implicit val logger = LoggerFactory.getLogger(getClass)
 
     /**
-      * Some extremely sofisticated business logic
+      * Some extremely sophisticated business logic
       *
       * @param i: A business Integer value
       * @param d: Some business Double value
       * @return (i, d + i)
       */
-    def myBusinessLogic(i: Int, d: Double): (Int, Double) = (i, d + i)
+    def myBusinessLogic(data: Data): Data = data.copy(d = data.i + data.d)
 
     val st = sourceDataWithContext
         .take(10)
         .logInfo("Elements Sourced")
         .asSourceWithContext(extractContext).map(extractData)
-        .map{ case (i, d) => myBusinessLogic(i, d)} // Execute "Business Logic"
+        .map(myBusinessLogic) // Execute "Business Logic"
         .logSWCInfo("Elements Inside")
         .asSource                                   // Restore context info
         .logInfo("Elements Processed")
