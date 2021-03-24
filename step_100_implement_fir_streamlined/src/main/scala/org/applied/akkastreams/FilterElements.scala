@@ -23,13 +23,12 @@ object FilterElements {
         val eq = Array.fill(delay)(0.0d)
         var idx = 0
 
-      {
-        case (sample, ff) =>
-          val delayedSample = eq(idx)
-          eq(idx) = sample
-          idx = (idx + 1) % delay
-          Iterable((delayedSample, ff + delayedSample * scaleFactor))
-      }
+        { case (sample, ff) =>
+            val delayedSample = eq(idx)
+            eq(idx) = sample
+            idx = (idx + 1) % delay
+            Iterable((delayedSample, ff + delayedSample * scaleFactor))
+        }
       }
     }
   }
@@ -40,12 +39,11 @@ object FilterElements {
         // mutable state needs to be kept inside the stage
         val eq = MQueue(List.fill(delay)(0.0d): _*)
 
-      {
-        case (sample, ff) =>
-          eq.enqueue(sample)
-          val delayedSample = eq.dequeue()
-          Iterable((delayedSample, ff + delayedSample * scaleFactor))
-      }
+        { case (sample, ff) =>
+            eq.enqueue(sample)
+            val delayedSample = eq.dequeue()
+            Iterable((delayedSample, ff + delayedSample * scaleFactor))
+        }
       }
     }
   }
