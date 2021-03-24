@@ -1,6 +1,7 @@
 package org.applied.akkastreams
 
 import akka.actor.ActorSystem
+import IIRFLow._
 
 object IIR extends App {
   import FilterElements._
