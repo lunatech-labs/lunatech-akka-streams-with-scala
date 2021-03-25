@@ -5,7 +5,6 @@ import org.scalatest.freespec._
 
 trait IIRTestData {
   import FilterElements._
-  import IIRFLow._
 
   val firFilterStages: List[FilterStage] =
     List((3, -0.3), (7, -0.2)).map(_.toFilterStage)
@@ -16,13 +15,13 @@ trait IIRTestData {
 }
 
 class IIRSpec extends AnyFreeSpec with AkkaSpec with IIRTestData {
-  "An IIR filter when fed a unit pulse" - {
-    "should produce delayed pulses at the expected delays" in {
-      val iirResponse = unitPulse
+  "An FIR filter when fed a unit pulse" - {
+    "should preduce delayed pulses at the expected delays" in {
+      val firResponse = unitPulse
         .via(testFilter)
         .runWith(Sink.seq)
         .futureValue
-      assert(iirResponse ==
+      assert(firResponse ==
         Vector(
           1.0d, // 0
           0.0d, // 1
