@@ -1,4 +1,4 @@
-package org.cmt
+package org.applied.akkastreams.substreams
 
 import scala.concurrent.duration._
 import scala.concurrent.TimeoutException
@@ -14,22 +14,18 @@ object DrivingDetector {
         f = _.vin,
         allowClosedSubstreamRecreation = true
       )
-      .statefulMapConcat { () =>
-        var driving = false
-
-        { signal =>
-          signal.signalType match {
-            case Ignition => if (driving && signal.value == 0) driving = false
-            case Velocity => if (!driving && signal.value > 0) driving = true
-          }
-          Seq(
-            if (driving) Driving(signal.vin)
-            else Parked(signal.vin)
-          )
-        }
+      .scan(Option.empty[DrivingState]) {
+        case (_, Signal(vin, Ignition, value)) if value == 0 =>
+          Some(Parked(vin))
+        case (_, Signal(vin, Velocity, value)) if value > 0 =>
+          Some(Driving(vin))
+        case (None, Signal(vin, _, _)) =>
+          Some(Parked(vin))
+        case (drivingState, _) =>
+          drivingState
       }
+      .collect { case Some(drivingState) => drivingState }
       .idleTimeout(5.minutes)
       .recoverWithRetries(1, { case _: TimeoutException => Source.empty })
       .mergeSubstreams
-
 }

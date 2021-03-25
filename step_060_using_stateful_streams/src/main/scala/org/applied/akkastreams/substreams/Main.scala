@@ -1,4 +1,4 @@
-package org.cmt
+package org.applied.akkastreams.substreams
 
 import akka.actor.ActorSystem
 import akka.stream.scaladsl.Source
