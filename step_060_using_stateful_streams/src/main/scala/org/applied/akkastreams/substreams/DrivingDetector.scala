@@ -1,4 +1,4 @@
-package org.cmt
+package org.applied.akkastreams.substreams
 
 import akka.stream.scaladsl.Flow
 import akka.NotUsed

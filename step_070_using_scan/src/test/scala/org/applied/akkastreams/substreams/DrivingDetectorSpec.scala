@@ -1,7 +1,7 @@
-package org.cmt
+package org.applied.akkastreams.substreams
 
 import org.scalatest.freespec.AnyFreeSpec
-import org.applied.akkastreams.AkkaSpec
+import org.applied.akkastreams.echo.AkkaSpec
 import akka.stream.scaladsl.Source
 import akka.stream.scaladsl.Sink
 

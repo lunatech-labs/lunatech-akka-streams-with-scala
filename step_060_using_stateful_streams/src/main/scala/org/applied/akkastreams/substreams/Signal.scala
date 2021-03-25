@@ -1,4 +1,4 @@
-package org.cmt
+package org.applied.akkastreams.substreams
 
 sealed trait SignalType
 case object Velocity extends SignalType
