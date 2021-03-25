@@ -7,7 +7,8 @@ You will pull the other parts of the implementation, the tests and
 a main program that will run a sample audio stream through a 3-stage
 IIR filter. Execute the following steps:
 
-- Save whatever work in progress you have by running the `saveState`
+- If you haven't saved your current exercise state as instructed in
+  the previous exercise, do this now by running the `saveState`
   command from the sbt prompt.
   
 - Pull the code by running `pullSolution` from the sbt prompt.
