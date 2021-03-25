@@ -1,19 +1,15 @@
-package org.applied.akkastreams
+package org.applied.akkastreams.echo
 
 import akka.actor.ActorSystem
 
-object FIRFIR extends App {
+object FIR extends App {
   import FilterElements._
 
-  // Make the Blueprint of an (FIR based) echo generator Flow
+  // Make the Blueprint of the (FIR based) echo generator Flow
   val firFilterStages: List[FilterStage] =
   List((3000, -0.3), (1500, -0.2), (4500, -0.35)).map(_.toFilterStage)
-  val firBasedEcho = buildFIR(firFilterStages)
 
-  // Make the Blueprint of another (FIR based) echo generator Flow
-  val firFilterStagesInverted =
-  List((3000, 0.3), (1500, 0.2), (4500, 0.35)).map(_.toFilterStage)
-  val firBasedEchoInverted = buildFIR(firFilterStagesInverted)
+  val firBasedEcho = buildFIR(firFilterStages)
 
   // Get some sample audio data as a Source
   val waveFileName = "welcome.wav"
@@ -30,7 +26,6 @@ object FIRFIR extends App {
   val runFlow =
   soundSource
     .via(firBasedEcho)
-    .via(firBasedEchoInverted)
     .grouped(1000)
     .runForeach(d => wavOutputFile.writeFrames(d.map(_ / 2.0).toArray, d.length))
 

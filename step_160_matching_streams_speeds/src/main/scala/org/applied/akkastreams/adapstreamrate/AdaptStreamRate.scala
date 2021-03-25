@@ -1,4 +1,4 @@
-package org.applied.akkastreams
+package org.applied.akkastreams.adaptstreamrate
 
 import akka.NotUsed
 import akka.actor.ActorSystem

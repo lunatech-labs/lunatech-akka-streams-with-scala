@@ -1,4 +1,4 @@
-package org.applied.akkastreams
+package org.applied.akkastreams.echo
 
 import akka.stream.scaladsl.{Sink, Source}
 import org.scalatest.freespec._

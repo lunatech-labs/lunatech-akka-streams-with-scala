@@ -1,15 +1,14 @@
-package org.applied.akkastreams
+package org.applied.akkastreams.echo
 
 import akka.actor.ActorSystem
 
-object FIR extends App {
+object IIR extends App {
   import FilterElements._
 
   // Make the Blueprint of the (FIR based) echo generator Flow
-  val firFilterStages: List[FilterStage] =
-  List((3000, -0.3), (1500, -0.2), (4500, -0.35)).map(_.toFilterStage)
-
-  val firBasedEcho = buildFIR(firFilterStages)
+  val iirFilterStages: List[FilterStage] =
+    List((3000, -0.3), (1500, -0.2), (4500, -0.35)).map(_.toFilterStage)
+  val iirBasedEcho = buildIIR(iirFilterStages)
 
   // Get some sample audio data as a Source
   val waveFileName = "welcome.wav"
@@ -25,7 +24,7 @@ object FIR extends App {
   // Run the flow and sink it to a wav file
   val runFlow =
   soundSource
-    .via(firBasedEcho)
+    .via(iirBasedEcho)
     .grouped(1000)
     .runForeach(d => wavOutputFile.writeFrames(d.map(_ / 2.0).toArray, d.length))
 
