@@ -30,7 +30,8 @@ lazy val `akka-streams-master` = (project in file("."))
     `step_130_chain_iir_and_fir_cancel_echo`,
     `step_140_check_diff`,
     `step_150_vco`,
-    `step_160_matching_streams_speeds`
+    `step_160_matching_streams_speeds`,
+    `step_170_flow_from_source_and_sink`
   )
   .settings(CommonSettings.commonSettings: _*)
 
@@ -90,6 +91,10 @@ lazy val `step_150_vco` = project
   .dependsOn(common % "test->test;compile->compile")
 
 lazy val `step_160_matching_streams_speeds` = project
+  .configure(CommonSettings.configure)
+  .dependsOn(common % "test->test;compile->compile")
+
+lazy val `step_170_flow_from_source_and_sink` = project
   .configure(CommonSettings.configure)
   .dependsOn(common % "test->test;compile->compile")
        
