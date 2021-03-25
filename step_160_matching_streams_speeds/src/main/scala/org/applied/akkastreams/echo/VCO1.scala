@@ -1,8 +1,8 @@
-package org.applied.akkastreams
+package org.applied.akkastreams.echo
 
 import akka.actor.ActorSystem
 
-object IIRFIR extends App {
+object VCO1 extends App {
   import FilterElements._
 
   def invertFilterCoefficients: PartialFunction[FilterStage, FilterStage] = {
@@ -15,7 +15,8 @@ object IIRFIR extends App {
   val firBasedEcho = buildFIR(firFilterStages)
 
   // Make the Blueprint of an (IIR based) echo generator Flow that cancels out the effect of the FIR filter above
-  val iirFilterStages: List[FilterStage] = firFilterStages.map(invertFilterCoefficients)
+  val iirFilterStages: List[FilterStage] =
+  List((2000, 0.1), (1500, 0.15), (4500, 0.1), (500, 0.15), (500, 0.15), (500, 0.1)).map(_.toFilterStage)
   val iirBasedEcho = buildIIR(iirFilterStages)
 
   // Get some sample audio data as a Source
@@ -29,13 +30,16 @@ object IIRFIR extends App {
   implicit val actorSystem = ActorSystem()
   import actorSystem.dispatcher
 
-  // Run the flow and sink it to a wav file
+//   Run the flow and sink it to a wav file
   val runFlow =
-  soundSource
-    .via(iirBasedEcho)
-    .via(firBasedEcho)
-    .grouped(1000)
-    .runForeach(d => wavOutputFile.writeFrames(d.map(_ / 2.0).toArray, d.length))
+    TriangleWave(5000, 0.0002, 0.0004)
+      .take(200000)
+      .via(VCO(0.785398163))
+      .via(ScaleAndShift(0.3, 0.2))
+      .via(VCO(0.785398163))
+      .via(iirBasedEcho)
+      .grouped(1000)
+      .runForeach(d => wavOutputFile.writeFrames(d.map(_ / 2.0).toArray, d.length))
 
   runFlow flatMap { _ => actorSystem.terminate() } onComplete { _ => wavOutputFile.close() }
 }
