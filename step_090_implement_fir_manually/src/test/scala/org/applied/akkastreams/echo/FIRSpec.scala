@@ -5,11 +5,14 @@ import org.scalatest.freespec._
 
 trait FIRTestData {
   import FilterElements._
+  import FIRElements._
 
-  val firFilterStages: List[FilterStage] =
-    List((2, -0.3), (3, -0.3), (5, -0.2)).map(_.toFilterStage)
-
-  val testFilter = buildFIR(firFilterStages)
+  // Create an FIR filter with delays/scala factors = (2, -0.3), (3, -0.3) and (5, -0.2)
+  val testFilter = FirInitial()
+    .via(DelayLineFlow(2, -0.3))
+    .via(DelayLineFlow(3, -0.3))
+    .via(DelayLineFlow(5, -0.2))
+    .via(FirSelectOut())
 
   val unitPulse = Source(1.0d +: List.fill[Double](20)(0.0d))
 }
