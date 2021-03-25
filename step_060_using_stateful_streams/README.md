@@ -15,9 +15,7 @@ pullTemplate scala/org/applied/akkastreams/substreams/Main.scala
 - Read the class definitions of `Signal` and `DrivingState`.
 
 - Create an object `DrivingDetector` with a `val flow` of type:
-  ```scala
-  Flow[Signal, DrivingState, NotUsed]
-  ```
+  ```Flow[Signal, DrivingState, NotUsed]```
 
 - Provide an implemention with the following behavior:
 
