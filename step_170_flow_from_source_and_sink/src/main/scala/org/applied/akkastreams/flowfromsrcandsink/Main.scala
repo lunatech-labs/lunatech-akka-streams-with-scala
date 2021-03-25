@@ -1,4 +1,4 @@
-package com.lightbend.akkassembly
+package org.applied.akkastreams.flowfromsrcandsink
 
 import akka.actor.ActorSystem
 import akka.stream.scaladsl.{Flow, Sink, Source}
