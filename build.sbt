@@ -18,7 +18,8 @@ lazy val `akka-streams-master` = (project in file("."))
   .aggregate(
     common,
     `step_050_using_sourceWithContext`,
-    `step_060_using_using_substreams`,
+    `step_060_using_stateful_streams`,
+    `step_061_using_substreams`,
     `step_070_using_scan`,
     `step_080_implement_a_delay_element`,
     `step_090_implement_fir_manually`,
@@ -40,7 +41,11 @@ lazy val `step_050_using_sourceWithContext` = project
   .configure(CommonSettings.configure)
   .dependsOn(common % "test->test;compile->compile")
 
-lazy val `step_060_using_using_substreams` = project
+lazy val `step_060_using_stateful_streams` = project
+  .configure(CommonSettings.configure)
+  .dependsOn(common % "test->test;compile->compile")
+
+lazy val `step_061_using_substreams` = project
   .configure(CommonSettings.configure)
   .dependsOn(common % "test->test;compile->compile")
 
