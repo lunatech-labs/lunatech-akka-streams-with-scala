@@ -11,17 +11,13 @@ import scala.concurrent.TimeoutException
 object Substreams extends App {
   implicit val system: ActorSystem = ActorSystem()
 
-  // Testdata: two vehicles both turn on ignition, drive a bit, stop, turn ignition off.
+  // Testdata: vehicle turns ignition on, drives a bit, stops, turns ignition off.
   Source(
     List(
       Signal(1, Ignition, 1d),
       Signal(1, Velocity, 10d),
-      Signal(2, Ignition, 1d),
-      Signal(2, Velocity, 10d),
       Signal(1, Velocity, 0d),
-      Signal(1, Ignition, 0d),
-      Signal(2, Velocity, 0d),
-      Signal(2, Ignition, 0d)
+      Signal(1, Ignition, 0d)
     )
   ).via(
     DrivingDetector.flow
