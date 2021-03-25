@@ -18,6 +18,7 @@ lazy val `akka-streams-master` = (project in file("."))
   .aggregate(
     common,
     `step_050_using_sourceWithContext`,
+    `step_055_flow_from_source_and_sink`,
     `step_060_using_stateful_streams`,
     `step_061_using_substreams`,
     `step_070_using_scan`,
@@ -30,8 +31,7 @@ lazy val `akka-streams-master` = (project in file("."))
     `step_130_chain_iir_and_fir_cancel_echo`,
     `step_140_check_diff`,
     `step_150_vco`,
-    `step_160_matching_streams_speeds`,
-    `step_170_flow_from_source_and_sink`
+    `step_160_matching_streams_speeds`
   )
   .settings(CommonSettings.commonSettings: _*)
 
@@ -39,6 +39,10 @@ lazy val common = project
   .settings(CommonSettings.commonSettings: _*)
 
 lazy val `step_050_using_sourceWithContext` = project
+  .configure(CommonSettings.configure)
+  .dependsOn(common % "test->test;compile->compile")
+
+lazy val `step_055_flow_from_source_and_sink` = project
   .configure(CommonSettings.configure)
   .dependsOn(common % "test->test;compile->compile")
 
@@ -91,10 +95,6 @@ lazy val `step_150_vco` = project
   .dependsOn(common % "test->test;compile->compile")
 
 lazy val `step_160_matching_streams_speeds` = project
-  .configure(CommonSettings.configure)
-  .dependsOn(common % "test->test;compile->compile")
-
-lazy val `step_170_flow_from_source_and_sink` = project
   .configure(CommonSettings.configure)
   .dependsOn(common % "test->test;compile->compile")
        
