@@ -23,7 +23,8 @@ Your task is to implement the `DelayLine` `Flow` component using
 
 ## Step by step implementation
 
-- Create a new Scala object named `FilterElements`
+- Create a new Scala object named `FilterElements` in package
+  `org.applied.akkastreams.echo`
 
 - In the `FilterElements` object, create a new Scala object named
   `DelayLineFlow` with an `apply` method that takes two parameters:
