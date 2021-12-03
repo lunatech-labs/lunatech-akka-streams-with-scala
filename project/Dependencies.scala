@@ -2,10 +2,10 @@ import sbt._
 
 object Version {
   val logbackVer        = "1.2.3"
-  val mUnitVer          = "0.7.22"
-  val akkaVer           = "2.6.12"
-  val scalaVersion      = "2.13.5"
-  val scalaTestVer      = "3.2.5"
+  val mUnitVer          = "0.7.25"
+  val akkaVer           = "2.6.17"
+  val scalaVersion      = "2.13.7"
+  val scalaTestVer      = "3.2.10"
 }
 
 object Dependencies {
@@ -31,9 +31,10 @@ object Dependencies {
 
   val dependencies: Seq[ModuleID] =
     logbackDeps ++
-    munitDeps
+    munitDeps ++
+    scalaTestDeps
 
   val scalaDependencies: Seq[ModuleID] =
-    akkaDeps ++
-    scalaTestDeps
+    akkaDeps
+    
 }

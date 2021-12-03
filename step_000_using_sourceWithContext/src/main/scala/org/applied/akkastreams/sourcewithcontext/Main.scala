@@ -70,9 +70,9 @@ object Main {
         .take(10)
         .logInfo("Elements Sourced")
         .asSourceWithContext(extractContext).map(extractData)
-        .map(myBusinessLogic) // Execute "Business Logic"
+        .map(myBusinessLogic)                  // Execute "Business Logic"
         .logSWCInfo("Elements Inside")
-        .asSource                                   // Restore context info
+        .asSource                              // Restore context info
         .logInfo("Elements Processed")
         .runWith(Sink.ignore)
 

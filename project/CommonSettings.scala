@@ -10,8 +10,7 @@ object CommonSettings {
     Test / logBuffered := false,
     Test / parallelExecution := false,
     libraryDependencies ++= Dependencies.dependencies,
-    libraryDependencies ++= Dependencies.scalaDependencies,
-    testFrameworks += new TestFramework("munit.Framework")
+    libraryDependencies ++= Dependencies.scalaDependencies.map(_.cross(CrossVersion.for3Use2_13)),
   ) ++
     AdditionalSettings.initialCmdsConsole ++
     AdditionalSettings.initialCmdsTestConsole ++

@@ -26,14 +26,19 @@ import sbt._
 object AdditionalSettings {
 
   // Change 'loadInitialCmds' to true when requested in exercise instructions
-  val loadInitialCmds = false
+  val loadInitialCmds = true
 
   val initialCmdsConsole: Seq[Def.Setting[String]] =
     if (loadInitialCmds) {
-      Seq(initialCommands in console := "import ._")
+      Seq(initialCommands in console :=
+        """import akka.actor.ActorSystem
+          |import akka.stream.scaladsl.{Source, Flow, Sink}
+          |import scala.concurrent.duration._
+          |""".stripMargin)
     } else {
       Seq()
     }
+
 
   val initialCmdsTestConsole: Seq[Def.Setting[String]]  =
     if (loadInitialCmds) {

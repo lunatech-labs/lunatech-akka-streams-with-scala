@@ -17,6 +17,7 @@ object Main extends App {
 
   val flow = Flow.fromSinkAndSource(fSink, fSource)
 
+
   val running = 
     Source.tick(3.second, 3.second, "Hello")
       .take(6)
@@ -27,7 +28,7 @@ object Main extends App {
 
   def printValue(f: Future[Option[String]]): Unit = {
     f.onComplete {
-      case Success(value) => println(value)
+      case Success(value) => println(s"Value = $value")
         printValue(queue.pull())
       case Failure(ex) => println(ex.toString)
     }
