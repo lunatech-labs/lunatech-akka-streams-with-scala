@@ -27,8 +27,10 @@ In general, you will use run through consecutive exercises, by moving to the nex
 exercise and pull the solution for that exercise. You can to do by issuing the following
 commands from the command line:
 
-`cmtc next-exercise <some folder>/lunatech-akka-streams-with-scala`
-`cmtc pull-solution <some folder>/lunatech-akka-streams-with-scala`
+```bash
+cmtc next-exercise <some folder>/lunatech-akka-streams-with-scala
+cmtc pull-solution <some folder>/lunatech-akka-streams-with-scala
+```
 
 Note that the last argument passed to these `cmtc` commands are the root folder of
 the studentified artifact.
@@ -61,8 +63,10 @@ It is also possible to jump to an arbitrary exercise by using the `cmtc goto-exe
 command. For example, to jump to exercise 11 and pull the solution for that exercise,
 execute the following commands:
 
-`cmtc goto-exercise step_011_chain_iir_and_fir_cancel_echo <some folder>/lunatech-akka-streams-with-scala`
-`cmtc pull-solution <some folder>/lunatech-akka-streams-with-scala`
+```bash
+cmtc goto-exercise step_011_chain_iir_and_fir_cancel_echo <some folder>/lunatech-akka-streams-with-scala
+cmtc pull-solution <some folder>/lunatech-akka-streams-with-scala
+```
 
 ## System prerequisites
 
